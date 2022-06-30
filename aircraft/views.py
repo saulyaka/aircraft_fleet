@@ -18,7 +18,6 @@ class AircrafViewSet(viewsets.GenericViewSet):
     queryset = Aircraft.objects.all()
     
 
-
     def list(self, request):
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response(serializer.data)
