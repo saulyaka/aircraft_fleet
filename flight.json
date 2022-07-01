@@ -1,0 +1,24 @@
+[
+  {
+    "model": "flight.flight",
+    "pk": 1,
+    "fields": {
+      "departure_airport": "AG",
+      "arrival_airport": "AN",
+      "departure_datetime": "2022-10-04T18:30:00",
+      "arrival_datetime": "2022-10-04T22:30:00",
+      "aircraft": 1
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 2,
+    "fields": {
+      "departure_airport": "AN",
+      "arrival_airport": "AG",
+      "departure_datetime": "2022-10-05T06:00:00",
+      "arrival_datetime": "2022-10-05T08:00:00",
+      "aircraft": null
+    }
+  }
+]

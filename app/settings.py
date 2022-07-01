@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'aircraft',
     'flight',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

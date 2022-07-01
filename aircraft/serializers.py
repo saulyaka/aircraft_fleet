@@ -5,4 +5,4 @@ from .models import Aircraft
 class AircraftSerializer(serializers.ModelSerializer):
     class Meta:
         model =Aircraft
-        fields = ('id', 'serial_number', 'manufacturer')
+        fields = ("id", "serial_number", "manufacturer")
