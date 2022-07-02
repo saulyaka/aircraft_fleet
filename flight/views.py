@@ -1,13 +1,12 @@
-from functools import partial
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework import generics
 from rest_framework.response import Response
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import DjangoObjectPermissions #TODO???????
-
+from django_filters import rest_framework as filters
 
 from flight.models import Flight
-from flight.serializers import FlightSerializer
+from flight.serializers import FlightSerializer, FlightReportSerializer
+from flight.filters import FlightFilter, FlightReportFilter
 
 
 class FlightViewSet(viewsets.GenericViewSet):
@@ -16,9 +15,6 @@ class FlightViewSet(viewsets.GenericViewSet):
     """
     serializer_class = FlightSerializer
     queryset = Flight.objects.all()
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['departure_airport', 'arrival_airport']
-    search_fields = ['departure_airport', 'arrival_airport']
 
     def list(self, request):
         serializer = self.get_serializer(self.get_queryset(), many=True)
@@ -47,4 +43,16 @@ class FlightViewSet(viewsets.GenericViewSet):
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    
+
+class FlightListFiltered(generics.ListAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = FlightFilter
+
+
+class FlightReport(generics.ListAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightReportSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = FlightReportFilter

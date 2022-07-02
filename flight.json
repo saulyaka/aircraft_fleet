@@ -18,7 +18,73 @@
       "arrival_airport": "AG",
       "departure_datetime": "2022-10-05T06:00:00",
       "arrival_datetime": "2022-10-05T08:00:00",
-      "aircraft": null
+      "aircraft": 2
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 3,
+    "fields": {
+      "departure_airport": "BG",
+      "arrival_airport": "C",
+      "departure_datetime": "2022-11-04T18:30:00",
+      "arrival_datetime": "2022-11-04T22:30:00",
+      "aircraft": 1
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 4,
+    "fields": {
+      "departure_airport": "BG",
+      "arrival_airport": "C",
+      "departure_datetime": "2020-10-05T06:00:00",
+      "arrival_datetime": "2020-10-05T08:00:00",
+      "aircraft": 2
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 5,
+    "fields": {
+      "departure_airport": "C",
+      "arrival_airport": "BG",
+      "departure_datetime": "2022-09-04T18:30:00",
+      "arrival_datetime": "2022-12-04T22:30:00",
+      "aircraft": 1
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 6,
+    "fields": {
+      "departure_airport": "DA",
+      "arrival_airport": "AY",
+      "departure_datetime": "2022-07-05T06:00:00",
+      "arrival_datetime": "2022-07-05T08:00:00",
+      "aircraft": 2
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 7,
+    "fields": {
+      "departure_airport": "DA",
+      "arrival_airport": "AY",
+      "departure_datetime": "2022-09-10T18:30:00",
+      "arrival_datetime": "2022-09-10T22:30:00",
+      "aircraft": 1
+    }
+  },
+  {
+    "model": "flight.flight",
+    "pk": 8,
+    "fields": {
+      "departure_airport": "AY",
+      "arrival_airport": "DA",
+      "departure_datetime": "2020-09-11T06:00:00",
+      "arrival_datetime": "2020-09-12T08:00:00",
+      "aircraft": 3
     }
   }
 ]

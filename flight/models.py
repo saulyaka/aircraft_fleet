@@ -13,12 +13,12 @@ def check_airport(value):
         raise ValidationError(
             f'{value} is not in airport list',
             params={'airport': value}
-            )
+        )
 
 
 def check_departure_time(value):
     if value < datetime.now():
-        raise ValidationError(f'departure time {value} must be in future') 
+        raise ValidationError(f'departure time {value} must be in future')
 
 
 class Flight(models.Model):
@@ -32,27 +32,24 @@ class Flight(models.Model):
         blank=True,
         null=True,
     )
-    
+
     class Meta:
         ordering = ['departure_datetime']
 
-    
     def __str__(self):
         return f'departure: {self.departure_airport}-{self.departure_datetime}, arrival: {self.arrival_airport}-{self.arrival_datetime}'
 
-
     def __repr__(self):
         return f'flight departure: {self.departure_airport}-{self.departure_datetime}, arrival: {self.arrival_airport}-{self.arrival_datetime} is added.'
-        
 
     def clean(self):
         # if aeroport is not in list
-        if len(self.departure_airport) > 2  or self.departure_airport not in codes:
+        if len(self.departure_airport) > 2 or self.departure_airport not in codes:
             raise ValidationError(
                 f'departure airport {self.departure_airport} is not in list',
                 params={'departure_airport': self.departure_airport}
             )
-        if len(self.arrival_airport) > 2  or self.arrival_airport not in codes:
+        if len(self.arrival_airport) > 2 or self.arrival_airport not in codes:
             raise ValidationError(
                 f'arrival airport {self.arrival_airport} is not in list',
                 params={'arrival_airport': self.arrival_airport}
@@ -67,9 +64,9 @@ class Flight(models.Model):
         # If arrival date-time comes befor departure date-time.
         if self.arrival_datetime < self.departure_datetime:
             raise ValidationError(
-                f'Arrival time comes before departure time ',
+                f'Arrival time {self.arrival_datetime} comes before departure time ',
                 params={
                     'arrival_datetime': self.arrival_datetime,
                     'departure_datetime': self.departure_datetime,
-                    }
+                }
             )
