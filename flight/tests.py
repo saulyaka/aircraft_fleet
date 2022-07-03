@@ -289,5 +289,18 @@ class FlightReportTest(TestCase):
                 None
             ]
         )
-        self.assertEqual(response.content, JSONRenderer().render(expected_result))
+        alternative_result = (
+            [
+                {
+                    "DA": {"number_of_departures": 1, "flights": [{"id": 7, "flight_time": 240}]},
+                    "C": {"number_of_departures": 1, "flights": [{"id": 5, "flight_time": 240}]}
+                },
+                None
+            ]           
+        )
+        if response.content == JSONRenderer().render(expected_result) or response.content == JSONRenderer().render(alternative_result):
+            test_passed = True
+        else:
+             test_passed = False
+        self.assertTrue(test_passed)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
