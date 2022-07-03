@@ -43,7 +43,7 @@
             Given link for ICAO codes gives the codes of 80-x. They were used.
 
  
-# Instalation
+# Installation
     In the root directory of the priject:
     Creating image:
         In CL: docker-compose build
