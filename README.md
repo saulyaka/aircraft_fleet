@@ -54,13 +54,13 @@
 
 # UI
     To have for a quick look to functionality Simple UI avaliable by:
-        aircrafts CRUD '/api-aircraft/aircraft/'
+        aircrafts CRUD http://127.0.0.1:8000/api-aircraft/aircraft/
 
-        flights CRUD '/api-flight/flight/'
+        flights CRUD http://127.0.0.1:8000/api-flight/flight/
 
-        flights search '/api-flight/search/'
+        flights search http://127.0.0.1:8000/api-flight/search/
                     
-        report '/api-flight/report/'
+        flight report http://127.0.0.1:8000/api-flight/report/
             
     By default db sqlite. If you want to have a look on UI with some data load fixtures
     in CL: in CL: docker-compose run --rm web python manage.py migrate
