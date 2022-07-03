@@ -1,7 +1,6 @@
 from rest_framework import status
 from django.test import TestCase, Client
 from rest_framework.renderers import JSONRenderer
-from django.urls import reverse
 import json
 
 from .models import Aircraft
