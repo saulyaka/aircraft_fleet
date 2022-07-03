@@ -25,10 +25,17 @@
 
 # UI
     To have for a quick look to functionality Simple UI avaliable by:
-        aircrafts CRUD http://127.0.0.1:8000/api-aircraft/aircraft/
-        flights CRUD http://127.0.0.1:8000/api-flight/flight/
-        flights search http://127.0.0.1:8000/api-flight/search/
-        report http://127.0.0.1:8000/api-flight/report/
+        aircrafts CRUD '/api-aircraft/aircraft/'
+
+        flights CRUD '/api-flight/flight/'
+
+        flights search '/api-flight/search/'
+            Args: 'departure_datetime_from', 'departure_datetime_ending', 'arrival_airport', 'departure_airport': 'C'
+        
+        report '/api-flight/report/'
+            Args: 'start', 'end':
+        *Notes: All date-time args in  datetime python style
+
     DB is empty. If you want to have a look on UI with some data load fixtures
     in CL: in CL: docker-compose run --rm web python manage.py loaddata aircraft.json
                   docker-compose run --rm web python manage.py loaddata flight.json

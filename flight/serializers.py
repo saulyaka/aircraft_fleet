@@ -16,18 +16,18 @@ class FlightSerializer(serializers.ModelSerializer):
 
 
 class FlightReportSerializer(serializers.Serializer):
-        
+
     @staticmethod
     def datetime_converter(interval):
         """
             Convert datetime instance to minutes.
-        """    
+        """
         seconsds = interval.seconds
-        minutes = int(seconsds/60)
+        minutes = int(seconsds / 60)
         return minutes
 
     def to_representation(self, instance):
-        """    
+        """
         Method is hardwired to model fields.
         """
         flights = self.instance

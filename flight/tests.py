@@ -181,34 +181,113 @@ class FlightSearchTest(TestCase):
     fixtures = ['aircraft.json', 'flight.json']
 
     def test_departure_airport_search(self):
-        airport = 'BG'
-        response = client.get(f'/api-flight/search/?departure_airport={airport}')
-        flights = Flight.objects.filter(departure_airport=airport)
+        params = {
+            'departure_airport': 'BG'
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(departure_airport=params['departure_airport'])
         self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_arrival_airport_search(self):
-        airport = 'C'
-        response = client.get(f'/api-flight/search/?arrival_airport={airport}')
-        flights = Flight.objects.filter(arrival_airport=airport)
+        params = {
+            'arrival_airport': 'AN'
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(arrival_airport=params['arrival_airport'])
         self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_departure_and_arrival_airport_search(self):
-        pass
+        params = {
+            'arrival_airport': 'AN',
+            'departure_airport': 'BG'
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(
+            arrival_airport=params['arrival_airport'],
+            departure_airport=params['departure_airport']
+        )
+        self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_departure_datetime_search(self):
-        pass
+        params = {
+            'departure_datetime_from': '2022-09-01 18:30',
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(departure_datetime__gte=params['departure_datetime_from'])
+        self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_arrival_datetime_search(self):
+        params = {
+            'departure_datetime_ending': '2022-09-01 18:30',
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(departure_datetime__lte=params['departure_datetime_ending'])
+        self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_departure_and_arrival_datetime_search(self):
-        pass
+        params = {
+            'departure_datetime_from': '2022-01-01',
+            'departure_datetime_ending': '2022-09-01',
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(
+            departure_datetime__gte=params['departure_datetime_from'],
+            departure_datetime__lte=params['departure_datetime_ending']
+        )
+        self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_departure_and_arrival_datetime__departure_and_arrival_airport_search(self):
-        pass
+        params = {
+            'departure_datetime_from': '2022-01-01',
+            'departure_datetime_ending': '2022-09-01',
+            'arrival_airport': 'AN',
+            'departure_airport': 'C'
+        }
+        response = client.get('/api-flight/search/', params)
+        flights = Flight.objects.filter(
+            departure_datetime__gte=params['departure_datetime_from'],
+            departure_datetime__lte=params['departure_datetime_ending'],
+            arrival_airport=params['arrival_airport'],
+            departure_airport=params['departure_airport']
+        )
+        self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_incorrect_search(self):
-        pass
+        params = {
+            'departure_datetime_from': '2022-01-01',
+            'departure_datetime_ending': 'AN',
+            'arrival_airport': 'AN',
+            'departure_airport': 'C'
+        }
+        response = client.get('/api-flight/search/', params)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class FlightReportTest(TestCase):
     fixtures = ['aircraft.json', 'flight.json']
+
+    def test_report(self):
+        import json
+        params = {
+            'start': '2022-09-10 19:00',
+            'end': '2022-09-11 13:00',
+        }
+        response = client.get('/api-flight/report/', params)
+        expected_result = (
+            [
+                {
+                    "C": {"number_of_departures": 1, "flights": [{"id": 5, "flight_time": 240}]},
+                    "DA": {"number_of_departures": 1, "flights": [{"id": 7, "flight_time": 240}]},
+                },
+                None
+            ]
+        )
+        self.assertEqual(response.content, JSONRenderer().render(expected_result))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -56,4 +56,3 @@ class FlightReport(generics.ListAPIView):
     serializer_class = FlightReportSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = FlightReportFilter
-   
