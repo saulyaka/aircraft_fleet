@@ -62,7 +62,7 @@
                     
         flight report http://127.0.0.1:8000/api-flight/report/
             
-    By default db sqlite. If you want to have a look on UI with some data load fixtures
+    By default db is sqlite. If you want to have a look on UI with some data load fixtures.
     in CL: in CL: docker-compose run --rm web python manage.py migrate
                   docker-compose run --rm web python manage.py loaddata aircraft.json
                   docker-compose run --rm web python manage.py loaddata flight.json
