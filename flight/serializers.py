@@ -37,6 +37,7 @@ class FlightReportSerializer(serializers.Serializer):
             for flight in flights:
                 airports_list.add(flight.departure_airport)
             data = dict()
+            airports_list = sorted(list(airports_list))
             for airport in airports_list:
                 airport_report = dict()
                 airport_report['number_of_departures'] = 0
