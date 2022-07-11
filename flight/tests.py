@@ -188,6 +188,31 @@ class FlightPutTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
+class FlightPatchTest(TestCase):
+    fixtures = ['aircraft.json', 'flight.json']
+    valid_payload_airport = {
+        "departure_airport": "BI",
+    }
+    invalid_payload_airport = {
+        "departure_airport": "Some incorrect airport",
+    }
+            
+    def test_valid_airport_partitial_update(self):
+        response = client.patch(
+            f'/api-flight/flight/{4}/',
+            data=json.dumps(self.valid_payload_airport),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+
+    def test_invalid_airport_partitial_update(self):
+        response = client.patch(
+            f'/api-flight/flight/{4}/',
+            data=json.dumps(self.invalid_payload_airport),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 class FlightSearchTest(TestCase):
     fixtures = ['aircraft.json', 'flight.json']
 

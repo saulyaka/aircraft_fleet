@@ -43,17 +43,30 @@ class FlightViewSet(viewsets.GenericViewSet):
 
     def update(self, request, *args, **kwargs):
         item = self.get_object()
+        serializer = self.get_serializer(item, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        if item.check_arrival_datetime():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def partial_update(self, request, pk=None):
+        item = self.get_object()
         serializer = self.get_serializer(item, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        if item.check_arrival_datetime():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):
         item = self.get_object()
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+    
 class FlightListFiltered(generics.ListAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
