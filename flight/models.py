@@ -42,31 +42,9 @@ class Flight(models.Model):
     def __repr__(self):
         return f'flight departure: {self.departure_airport}-{self.departure_datetime}, arrival: {self.arrival_airport}-{self.arrival_datetime} is added.'
 
-    def clean(self):
-        # if aeroport is not in list
-        if len(self.departure_airport) > 2 or self.departure_airport not in codes:
-            raise ValidationError(
-                f'departure airport {self.departure_airport} is not in list',
-                params={'departure_airport': self.departure_airport}
-            )
-        if len(self.arrival_airport) > 2 or self.arrival_airport not in codes:
-            raise ValidationError(
-                f'arrival airport {self.arrival_airport} is not in list',
-                params={'arrival_airport': self.arrival_airport}
-            )
-        # If the departure date-time is in the past.
-        current_time = datetime.now()
-        if self.departure_datetime < current_time:
-            raise ValidationError(
-                f'departure time {self.departure_datetime} has already passed',
-                params={'departure_datetime': self.departure_datetime}
-            )
+    def check_arrival_datetime(self):
         # If arrival date-time comes befor departure date-time.
-        if self.arrival_datetime < self.departure_datetime:
-            raise ValidationError(
-                f'Arrival time {self.arrival_datetime} comes before departure time ',
-                params={
-                    'arrival_datetime': self.arrival_datetime,
-                    'departure_datetime': self.departure_datetime,
-                }
-            )
+        if self.arrival_datetime <= self.departure_datetime:
+            return False
+        else:
+            return True

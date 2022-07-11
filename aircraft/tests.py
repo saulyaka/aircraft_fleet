@@ -13,6 +13,10 @@ class AircraftTest(TestCase):
     """ Test model Aircraft and"""
     fixtures = ['aircraft.json']
 
+    def setUp(self):
+        self.aircraft = Aircraft.objects.create(
+            serial_number='10-01LKKJHGFF0000', manufacturer='Boeing')
+
     def test_creation_aircraft(self):
         # Correct data
         response = client.post(
@@ -29,6 +33,13 @@ class AircraftTest(TestCase):
         response = client.post(
             '/api-aircraft/aircraft/',
             {'serial_number': '', 'manufacturer': '0908673_____!@#$%^asdfMNB'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # With existing serial number
+        response = client.post(
+            '/api-aircraft/aircraft/',
+            {'serial_number': '10-01LKKJHGFF0000', 'manufacturer': 'Boeing'}
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

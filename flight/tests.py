@@ -107,6 +107,17 @@ class CreatNewFlightTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_incorrect_arrival_time(self):
+        response = client.post(
+            '/api-flight/flight/', {
+                "departure_airport": "BG",
+                "arrival_airport": "C",
+                "departure_datetime": "2023-10-04T22:30:00",
+                "arrival_datetime": "2023-10-04T20:30:00",
+                "aircraft": 1
+            }
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 class FlightListTest(TestCase):
     fixtures = ['aircraft.json', 'flight.json']

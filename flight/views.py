@@ -28,8 +28,18 @@ class FlightViewSet(viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        flight = Flight.objects.create(
+            departure_airport=request.data['departure_airport'],
+            arrival_airport=request.data['arrival_airport'],
+            departure_datetime=request.data['departure_datetime'],
+            arrival_datetime=request.data['arrival_datetime'],
+            aircraft=None
+        )
+        if flight.check_arrival_datetime():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
         item = self.get_object()
