@@ -13,7 +13,7 @@ client = Client()
 
 
 class CreatNewFlightTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
 
     def test_correct_created_flight(self):
         response = client.post(
@@ -119,8 +119,9 @@ class CreatNewFlightTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+
 class FlightListTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
 
     def test_list_flight(self):
         response = client.get('/api-flight/flight/')
@@ -130,7 +131,7 @@ class FlightListTest(TestCase):
 
 
 class FlightDeleteTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
 
     def test_delete_flight(self):
         response = client.get(f'/api-flight/flight/{6}/')
@@ -140,7 +141,7 @@ class FlightDeleteTest(TestCase):
 
 
 class FlightPutTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
     valid_payload = {
         "departure_airport": "BI",
         "arrival_airport": "C",
@@ -189,14 +190,14 @@ class FlightPutTest(TestCase):
 
 
 class FlightPatchTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
     valid_payload_airport = {
         "departure_airport": "BI",
     }
     invalid_payload_airport = {
         "departure_airport": "Some incorrect airport",
     }
-            
+
     def test_valid_airport_partitial_update(self):
         response = client.patch(
             f'/api-flight/flight/{4}/',
@@ -213,8 +214,9 @@ class FlightPatchTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+
 class FlightSearchTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
 
     def test_departure_airport_search(self):
         params = {
@@ -307,7 +309,7 @@ class FlightSearchTest(TestCase):
 
 
 class FlightReportTest(TestCase):
-    fixtures = ['aircraft.json', 'flight.json']
+    fixtures = ['fixture.json', ]
 
     def test_report(self):
         import json

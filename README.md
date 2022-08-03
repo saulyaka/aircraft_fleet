@@ -1,6 +1,7 @@
 # Title: Aircraft fleet / Repositoriy: saulyaka/aircraft_fleet
 # Author: Alla Popova
-
+# Framework: Django
+# Data base: Sqlite3
 * Project status: working/dev
 
 # What is it/What does it do:
@@ -41,7 +42,6 @@
         **Notes:
             All date-time args in  datetime python style
             Given link for ICAO codes gives the codes of 80-x. They were used.
-
  
 # Installation
     In the root directory of the priject:
@@ -52,15 +52,34 @@
 # Testing
     in CL: docker-compose run --rm web python manage.py test --verbosity 2 --force-color
 
-# UI
-    To have for a quick look to functionality Simple UI avaliable by:
-        aircrafts CRUD http://127.0.0.1:8000/api-aircraft/aircraft/
+# Request
+    *Aircrafts CRUD
+    GET
+       http://127.0.0.1:8000/api-aircraft/aircraft/{id}
+    POST
+        http://127.0.0.1:8000/api-aircraft/aircraft/
+    PUT (partitial=True)
+        http://127.0.0.1:8000/api-aircraft/aircraft/{id}
+    DELETE
+        http://127.0.0.1:8000/api-aircraft/aircraft/{id}
 
-        flights CRUD http://127.0.0.1:8000/api-flight/flight/
+    *Flights CRUD
+    GET
+        http://127.0.0.1:8000/api-flight/flight/{id}
+    POST
+        http://127.0.0.1:8000/api-flight/flight/
+    PUT (partitial=True)
+        http://127.0.0.1:8000/api-flight/flight/{id}
+    DELETE
+        http://127.0.0.1:8000/api-flight/flight/{id}
 
-        flights search http://127.0.0.1:8000/api-flight/search/
+    *Flights search 
+    GET
+        http://127.0.0.1:8000/api-flight/search/
                     
-        flight report http://127.0.0.1:8000/api-flight/report/
+    *Flight report
+    GET
+        http://127.0.0.1:8000/api-flight/report/
             
     By default db is sqlite. If you want to have a look on UI with some data load fixtures.
     in CL: in CL: docker-compose run --rm web python manage.py migrate

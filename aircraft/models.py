@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
-   
+
 class Aircraft(models.Model):
     serial_number = models.CharField(max_length=250, unique=True)
     manufacturer = models.CharField(max_length=250)

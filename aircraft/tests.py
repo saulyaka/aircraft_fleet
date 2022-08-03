@@ -11,7 +11,7 @@ client = Client()
 
 class AircraftTest(TestCase):
     """ Test model Aircraft and"""
-    fixtures = ['aircraft.json']
+    fixtures = ['fixture.json', ]
 
     def setUp(self):
         self.aircraft = Aircraft.objects.create(
