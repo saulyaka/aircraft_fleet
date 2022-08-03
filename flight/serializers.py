@@ -1,9 +1,5 @@
 from rest_framework import serializers
 from .models import Flight
-from django.core.exceptions import ValidationError
-from datetime import datetime
-
-from aircraft.codes_ICAO import CODES_ICAO as codes
 
 
 class FlightSerializer(serializers.ModelSerializer):
