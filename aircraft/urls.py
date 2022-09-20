@@ -5,5 +5,5 @@ from .views import AircrafViewSet
 app_name = 'aircraft'
 
 router = routers.SimpleRouter()
-router.register(r'aircraft', AircrafViewSet, basename='aircraft')
+router.register(r'', AircrafViewSet, basename='aircraft')
 urlpatterns = router.urls

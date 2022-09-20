@@ -7,8 +7,8 @@
 # What is it/What does it do:
     The project is developed on Django Framework and containerized in Docker.
     Models: Aircraft and Flight
-    For Aircraft CRUD methods avalible by '/api-aircraft/aircraft/'
-    For Flight CRUD methods avaliable by '/api-flight/flight/'
+    For Aircraft CRUD methods avalible by '/api-aircraft/'
+    For Flight CRUD methods avaliable by '/api-flight/'
     Flight Search/Filtering avaliable by '/api-flight/search/'
         Args: 'departure_datetime_from', 'departure_datetime_ending', 'arrival_airport', 'departure_airport': 'C'
     Flight report avaliable by '/api-flight/report/'
@@ -38,7 +38,7 @@
                         }
                     }
                 ]
-            
+    Documentation valiable by '/api-doc/'       
         **Notes:
             All date-time args in  datetime python style
             Given link for ICAO codes gives the codes of 80-x. They were used.
@@ -55,23 +55,23 @@
 # Request
     *Aircrafts CRUD
     GET
-       http://127.0.0.1:8000/api-aircraft/aircraft/{id}
+       http://127.0.0.1:8000/api-aircraft/{id}
     POST
-        http://127.0.0.1:8000/api-aircraft/aircraft/
+        http://127.0.0.1:8000/api-aircraft/
     PUT (partitial=True)
-        http://127.0.0.1:8000/api-aircraft/aircraft/{id}
+        http://127.0.0.1:8000/api-aircraft/{id}
     DELETE
-        http://127.0.0.1:8000/api-aircraft/aircraft/{id}
+        http://127.0.0.1:8000/api-aircraft/{id}
 
     *Flights CRUD
     GET
-        http://127.0.0.1:8000/api-flight/flight/{id}
+        http://127.0.0.1:8000/api-flight/{id}
     POST
-        http://127.0.0.1:8000/api-flight/flight/
+        http://127.0.0.1:8000/api-flight/
     PUT (partitial=True)
-        http://127.0.0.1:8000/api-flight/flight/{id}
+        http://127.0.0.1:8000/api-flight/{id}
     DELETE
-        http://127.0.0.1:8000/api-flight/flight/{id}
+        http://127.0.0.1:8000/api-flight/{id}
 
     *Flights search 
     GET
@@ -88,36 +88,46 @@
                   docker-compose up
 
 # Project tree:
-    ├── aircraft
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── codes_ICAO.py
-    │   ├── migrations
-    │   ├── models.py
-    │   ├── serializers.py
-    │   ├── tests.py
-    │   ├── urls.py
-    │   └── views.py
-    ├── aircraft.json
-    ├── app
-    │   ├── asgi.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   └── wsgi.py
-    ├── db.sqlite3
-    ├── docker-compose.yml
-    ├── Dockerfile
-    ├── flight
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── filters.py
-    │   ├── migrations
-    │   ├── models.py
-    │   ├── serializers.py
-    │   ├── tests.py
-    │   ├── urls.py
-    │   └── views.py
-    ├── flight.json
-    ├── manage.py
-    ├── README.md
-    └── requirements.txt
+   ├── aircraft
+│   ├── admin.py
+│   ├── apps.py
+│   ├── codes_ICAO.py
+│   ├── __init__.py
+│   ├── migrations 
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── app
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── db.sqlite3
+├── docker-compose.yml
+├── Dockerfile
+├── documentation
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── migrations
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── fixture.json
+├── flight
+│   ├── admin.py
+│   ├── apps.py
+│   ├── filters.py
+│   ├── __init__.py
+│   ├── migrations
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── manage.py
+├── README.md
+└── requirements.txt

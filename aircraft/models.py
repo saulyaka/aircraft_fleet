@@ -10,4 +10,4 @@ class Aircraft(models.Model):
         return f'{self.serial_number}, {self.manufacturer}'
 
     def __repr__(self):
-        return f'aircraft {self.serial_number} is added.'
+        return f'aircraft {self.serial_number}'

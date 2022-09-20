@@ -6,7 +6,7 @@ from .views import FlightViewSet, FlightListFiltered, FlightReport
 app_name = 'flight'
 
 router = routers.SimpleRouter()
-router.register(r'flight', FlightViewSet, basename='flight')
+router.register(r'', FlightViewSet, basename='flight')
 
 urlpatterns = router.urls
 urlpatterns.append(path(r'search/', FlightListFiltered.as_view(), name='search'))
