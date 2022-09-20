@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.schemas import get_schema_view
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
@@ -22,5 +24,9 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api-aircraft/', include('aircraft.urls')),
     path('api-flight/', include('flight.urls')),
-    path('api-doc/', include('documentation.urls')),
+    path('api_schema/', get_schema_view(title='API_Schema', description='Guide for the Aircraft REST API'), name='api_schema'),
+    path('swagger-ui/', TemplateView.as_view(
+        template_name='docs.html',
+        extra_context={'schema_url': 'api_schema'}
+    ), name='swagger-ui'),
 ]

@@ -4,3 +4,4 @@ django-filter
 flake8==3.9.2
 pyyaml
 uritemplate
+django-rest-swagger

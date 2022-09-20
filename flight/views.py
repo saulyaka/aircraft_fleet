@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from rest_framework.schemas.openapi import AutoSchema
 
+
 from flight.models import Flight
 from flight.serializers import FlightSerializer, FlightReportSerializer
 from flight.filters import FlightFilter, FlightReportFilter
