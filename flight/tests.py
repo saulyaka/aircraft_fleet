@@ -17,7 +17,7 @@ class CreatNewFlightTest(TestCase):
 
     def test_correct_created_flight(self):
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "BI",
                 "arrival_airport": "C",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -30,11 +30,11 @@ class CreatNewFlightTest(TestCase):
         flights = Flight.objects.all()
         pk = flights[len(flights) - 1].id
         flight = Flight.objects.get(pk=pk)
-        response = client.get(f'/api-flight/flight/{pk}/')
+        response = client.get(f'/api-flight/{pk}/')
         self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flight).data))
 
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "BI",
                 "arrival_airport": "C",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -47,12 +47,12 @@ class CreatNewFlightTest(TestCase):
         flights = Flight.objects.all()
         pk = flights[len(flights) - 1].id
         flight = Flight.objects.get(pk=pk)
-        response = client.get(f'/api-flight/flight/{pk}/')
+        response = client.get(f'/api-flight/{pk}/')
         self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flight).data))
 
     def test_incorrect_airport_(self):
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "",
                 "arrival_airport": "C",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -63,7 +63,7 @@ class CreatNewFlightTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "11",
                 "arrival_airport": "C",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -74,7 +74,7 @@ class CreatNewFlightTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "BI",
                 "arrival_airport": "",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -85,7 +85,7 @@ class CreatNewFlightTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "",
                 "arrival_airport": "C",
                 "departure_datetime": "2025-10-04T18:30:00",
@@ -97,7 +97,7 @@ class CreatNewFlightTest(TestCase):
 
     def test_incorrect_departure_time(self):
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "BG",
                 "arrival_airport": "C",
                 "departure_datetime": "2020-10-04T18:30:00",
@@ -109,7 +109,7 @@ class CreatNewFlightTest(TestCase):
 
     def test_incorrect_arrival_time(self):
         response = client.post(
-            '/api-flight/flight/', {
+            '/api-flight/', {
                 "departure_airport": "BG",
                 "arrival_airport": "C",
                 "departure_datetime": "2023-10-04T22:30:00",
@@ -124,7 +124,7 @@ class FlightListTest(TestCase):
     fixtures = ['fixture.json', ]
 
     def test_list_flight(self):
-        response = client.get('/api-flight/flight/')
+        response = client.get('/api-flight/')
         flights = Flight.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.content, JSONRenderer().render(FlightSerializer(flights, many=True).data))
@@ -134,9 +134,9 @@ class FlightDeleteTest(TestCase):
     fixtures = ['fixture.json', ]
 
     def test_delete_flight(self):
-        response = client.get(f'/api-flight/flight/{6}/')
+        response = client.get(f'/api-flight/{6}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response = client.delete(f'/api-flight/flight/{6}/')
+        response = client.delete(f'/api-flight/{6}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
@@ -166,7 +166,7 @@ class FlightPutTest(TestCase):
 
     def test_valid_update_flight(self):
         response = client.put(
-            f'/api-flight/flight/{4}/',
+            f'/api-flight/{4}/',
             data=json.dumps(self.valid_payload),
             content_type='application/json'
         )
@@ -174,7 +174,7 @@ class FlightPutTest(TestCase):
 
     def test_invalid_update_airport(self):
         response = client.put(
-            f'/api-flight/flight/{4}/',
+            f'/api-flight/{4}/',
             data=json.dumps(self.invalid_payload_airport),
             content_type='application/json'
         )
@@ -182,7 +182,7 @@ class FlightPutTest(TestCase):
 
     def test_invalid_update_datetime(self):
         response = client.put(
-            f'/api-flight/flight/{4}/',
+            f'/api-flight/{4}/',
             data=json.dumps(self.invalid_payload_datetime),
             content_type='application/json'
         )
@@ -200,7 +200,7 @@ class FlightPatchTest(TestCase):
 
     def test_valid_airport_partitial_update(self):
         response = client.patch(
-            f'/api-flight/flight/{4}/',
+            f'/api-flight/{4}/',
             data=json.dumps(self.valid_payload_airport),
             content_type='application/json'
         )
@@ -208,7 +208,7 @@ class FlightPatchTest(TestCase):
 
     def test_invalid_airport_partitial_update(self):
         response = client.patch(
-            f'/api-flight/flight/{4}/',
+            f'/api-flight/{4}/',
             data=json.dumps(self.invalid_payload_airport),
             content_type='application/json'
         )

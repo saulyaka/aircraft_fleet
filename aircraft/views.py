@@ -1,6 +1,6 @@
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 
 from aircraft.models import Aircraft
 from aircraft.serializers import AircraftSerializer

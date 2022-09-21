@@ -10,7 +10,7 @@ client = Client()
 
 
 class AircraftTest(TestCase):
-    """ Test model Aircraft and"""
+    """Test model Aircraft"""
     fixtures = ['fixture.json', ]
 
     def setUp(self):
@@ -20,40 +20,40 @@ class AircraftTest(TestCase):
     def test_creation_aircraft(self):
         # Correct data
         response = client.post(
-            '/api-aircraft/aircraft/',
+            '/api-aircraft/',
             {'serial_number': '124asdAS!@#$%^&*()', 'manufacturer': '0908673_____!@#$%^asdfMNB'}
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         aircraft = Aircraft.objects.get(serial_number='124asdAS!@#$%^&*()')
-        response = client.get(f'/api-aircraft/aircraft/{aircraft.id}/')
+        response = client.get(f'/api-aircraft/{aircraft.id}/')
         self.assertEqual(response.content, JSONRenderer().render(AircraftSerializer(aircraft).data))
 
         # Incorrect data
         response = client.post(
-            '/api-aircraft/aircraft/',
+            '/api-aircraft/',
             {'serial_number': '', 'manufacturer': '0908673_____!@#$%^asdfMNB'}
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         # With existing serial number
         response = client.post(
-            '/api-aircraft/aircraft/',
+            '/api-aircraft/',
             {'serial_number': '10-01LKKJHGFF0000', 'manufacturer': 'Boeing'}
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_delete_aircraft(self):
         response = client.post(
-            '/api-aircraft/aircraft/',
+            '/api-aircraft/',
             {'serial_number': '124asdAS!@#$%^&*()', 'manufacturer': '0908673_____!@#$%^asdfMNB'}
         )
         aircraft = Aircraft.objects.get(serial_number='124asdAS!@#$%^&*()')
-        response = client.delete(f'/api-aircraft/aircraft/{aircraft.id}/')
+        response = client.delete(f'/api-aircraft/{aircraft.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_list_aircraft(self):
-        response = client.get('/api-aircraft/aircraft/')
+        response = client.get('/api-aircraft/')
         aircrafts = Aircraft.objects.all()
         self.assertEqual(response.content, JSONRenderer().render(AircraftSerializer(aircrafts, many=True).data))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -77,7 +77,7 @@ class UpdateSingleAircraftTest(TestCase):
 
     def test_valid_update_aircraft(self):
         response = client.put(
-            f'/api-aircraft/aircraft/{self.aircraft.id}/',
+            f'/api-aircraft/{self.aircraft.id}/',
             data=json.dumps(self.valid_payload),
             content_type='application/json'
         )
@@ -85,7 +85,7 @@ class UpdateSingleAircraftTest(TestCase):
 
     def test_invalid_update_aircraft(self):
         response = client.put(
-            f'/api-aircraft/aircraft/{self.aircraft.id}/',
+            f'/api-aircraft/{self.aircraft.id}/',
             data=json.dumps(self.invalid_payload),
             content_type='application/json'
         )

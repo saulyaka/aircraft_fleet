@@ -92,17 +92,12 @@ class FlightListFiltered(generics.ListAPIView):
     Flights filtering.
     Avaliable filters: departure airport, arrival airport, departure start date-time, departure end date-time
     """
+    model = Flight
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = FlightFilter
-
-
-class CustomSchema(AutoSchema):
-    """
-    AutoSchema subclass using schema_extra_info on the view.
-    """
-
+    
 
 class FlightReport(generics.ListAPIView):
     """
@@ -113,4 +108,3 @@ class FlightReport(generics.ListAPIView):
     serializer_class = FlightReportSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = FlightReportFilter
-    schema = CustomSchema()

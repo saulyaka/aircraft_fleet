@@ -3,7 +3,8 @@
 # Framework: Django
 # Data base: Sqlite3
 * Project status: working/dev
-
+# API documentation:
+    http://127.0.0.1:8000/swagger-ui/
 # What is it/What does it do:
     The project is developed on Django Framework and containerized in Docker.
     Models: Aircraft and Flight
